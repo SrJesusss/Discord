@@ -8,7 +8,7 @@
 
 > [!NOTE]
 > If you want to be added to this mod ping me in the [Balatro server](https://discord.gg/balatro)
- or the [Joker Forge server](https://discord.gg/kvUWm9BzdG)
+ or the [Joker Forge server](https://discord.gg/kvUWm9BzdG) im patitofi8!
 
 # 
 
