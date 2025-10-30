@@ -16,5 +16,3 @@
 <img width="625" height="475" alt="Balatro 30_10_2025 2_20_27 p  m" src="https://github.com/user-attachments/assets/eb82023f-a6a1-402e-bb45-4204116d1c02" />
 
 <img width="630" height="325" alt="Balatro 30_10_2025 2_20_32 p  m" src="https://github.com/user-attachments/assets/ea019e91-e362-45dc-b546-ad9acc02439d" />
-
-https://github.com/SrJesusss/Discord/blob/9eb861a1962a5168e8b04cefd0c9443d0d093dc3/discord.zip
