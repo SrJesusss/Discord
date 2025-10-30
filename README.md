@@ -7,8 +7,8 @@
 - **3** Food Jokers (Jokers related to food)
 
 > [!NOTE]
-> If you want to be added to this mod ping me in the [Balatro server](https://discord.gg/balatro)
- or the [Joker Forge server](https://discord.gg/kvUWm9BzdG) im patitofi8!
+> My username in Discord is **patitiofi8** so iff you have a issue or want to be added to this mod ping me in the [Balatro server](https://discord.gg/balatro)
+ or the [Joker Forge server](https://discord.gg/kvUWm9BzdG)
 
 # 
 
