@@ -28,7 +28,7 @@ local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
-local jokerIndexList = {19,27,25,21,7,35,13,24,15,18,17,10,2,34,33,28,20,32,14,5,6,4,16,3,26,30,1,9,12,37,8,31,29,11,23,36,22}
+local jokerIndexList = {20,28,26,22,8,36,14,25,16,19,18,11,3,35,34,29,21,33,15,6,7,2,5,17,4,27,31,1,10,13,38,9,32,30,12,24,37,23}
 
 local function load_jokers_folder()
     local mod_path = SMODS.current_mod.path
@@ -71,6 +71,7 @@ SMODS.ObjectType({
     key = "discord_dm_me",
     cards = {
         ["j_discord_abelsketch"] = true,
+        ["j_discord_agente_spia_:_cavo"] = true,
         ["j_discord_alt_account"] = true,
         ["j_discord_blue"] = true,
         ["j_discord_bonethy"] = true,
