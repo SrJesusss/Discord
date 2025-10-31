@@ -4,7 +4,7 @@
   "author": [
     "patitofi8"
   ],
-  "description": "A mod created with Joker Forge about Discord",
+  "description": "A mod created with Joker Forge about Discord.",
   "prefix": "discord",
   "main_file": "main.lua",
   "version": "1.0.0",
