@@ -2,7 +2,7 @@
 
 - **38** Discord Jokers (All the Jokers on this mod)
 
-- **18** Discord Users (Users who asked me to add them to this mod or i simply added them)
+- **19** Discord Users (Users who asked me to add them to this mod or i simply added them)
 
 - **3** Food Jokers (Jokers related to food)
 
