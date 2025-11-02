@@ -11,7 +11,7 @@ SMODS.Joker{ --Chicken Sandwich
         ['text'] = {
             [1] = '{C:red}+1{} Mult',
             [2] = '{C:dark_edition}+1{} Joker Slot',
-            [3] = 'Creates {C:attention}Chicken Sandwich{}',
+            [3] = 'creates {C:attention}Chicken Sandwich{}',
             [4] = 'when {C:attention}Boss Blind{} is defeated'
         },
         ['unlock'] = {
