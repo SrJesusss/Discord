@@ -1,5 +1,5 @@
 SMODS.Joker{ --Agente Spia: Cavo
-    key = "agente_spia_:_cavo",
+    key = "agente_spia_cavo",
     config = {
         extra = {
         }
@@ -30,6 +30,14 @@ SMODS.Joker{ --Agente Spia: Cavo
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
+    in_pool = function(self, args)
+          return (
+          not args 
+            
+          or args.source == 'sho' or args.source == 'buf' or args.source == 'jud' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+          )
+          and G.GAME.pool_flags.discord_cavo_bought
+      end,
 
     
     calculate = function(self, card, context)
