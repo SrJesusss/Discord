@@ -1,4 +1,4 @@
-MODS.Atlas({
+SMODS.Atlas({
     key = "modicon", 
     path = "ModIcon.png", 
     px = 34,
