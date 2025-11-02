@@ -28,7 +28,7 @@ local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
-local jokerIndexList = {20,28,26,22,8,36,14,25,16,19,18,11,3,35,34,29,21,33,15,6,7,2,5,17,4,27,31,1,10,13,38,9,32,30,12,24,37,23}
+local jokerIndexList = {21,29,27,23,9,38,15,26,17,8,20,19,12,3,37,36,30,22,35,16,6,7,2,5,18,4,28,32,1,11,14,40,10,33,31,13,25,39,34,24}
 
 local function load_jokers_folder()
     local mod_path = SMODS.current_mod.path
@@ -61,6 +61,7 @@ SMODS.ObjectType({
         ["j_popcorn"] = true,
         ["j_ramen"] = true,
         ["j_selzer"] = true,
+        ["j_discord_chicken_sandwich"] = true,
         ["j_discord_hacked_user"] = true,
         ["j_discord_happy_tomato"] = true,
         ["j_discord_savings"] = true
@@ -77,6 +78,7 @@ SMODS.ObjectType({
         ["j_discord_bonethy"] = true,
         ["j_discord_cavendish"] = true,
         ["j_discord_cavo"] = true,
+        ["j_discord_chicken_sandwich"] = true,
         ["j_discord_clown"] = true,
         ["j_discord_comykel"] = true,
         ["j_discord_doggfly"] = true,
@@ -99,9 +101,10 @@ SMODS.ObjectType({
         ["j_discord_sillyz_jimbo"] = true,
         ["j_discord_spammer"] = true,
         ["j_discord_spoiler_message"] = true,
-        ["j_discord_spooky_razz"] = true,
+        ["j_discord_spookyrazz"] = true,
         ["j_discord_ssarahh"] = true,
         ["j_discord_stefwuzhere"] = true,
+        ["j_discord_superbread"] = true,
         ["j_discord_the_wheel_of_misfortune"] = true,
         ["j_discord_totally_rigged"] = true,
         ["j_discord_underage_user"] = true,
