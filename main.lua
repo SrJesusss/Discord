@@ -1,4 +1,4 @@
-SMODS.Atlas({
+MODS.Atlas({
     key = "modicon", 
     path = "ModIcon.png", 
     px = 34,
@@ -72,7 +72,7 @@ SMODS.ObjectType({
     key = "discord_dm_me",
     cards = {
         ["j_discord_abelsketch"] = true,
-        ["j_discord_agente_spia_:_cavo"] = true,
+        ["j_discord_agente_spia_cavo"] = true,
         ["j_discord_alt_account"] = true,
         ["j_discord_blue"] = true,
         ["j_discord_bonethy"] = true,
