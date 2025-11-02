@@ -1,10 +1,10 @@
 # This mod adds:
 
-- **38** Discord Jokers (All the Jokers on this mod)
+- **40** Discord Jokers (All the Jokers on this mod)
 
-- **19** Discord Users (Users who asked me to add them to this mod or i simply added them)
+- **20** Discord Users (Users who asked me to add them to this mod or i simply added them)
 
-- **3** Food Jokers (Jokers related to food)
+- **4** Food Jokers (Jokers related to food)
 
 > [!NOTE]
 > My username in Discord is **patitifi8** so if you have found any bug or just want to be added to this mod ping me in the [Balatro server](https://discord.gg/balatro)
@@ -12,8 +12,8 @@
 
 # 
 
-<img width="630" height="475" alt="Balatro 30_10_2025 2_20_23 p  m" src="https://github.com/user-attachments/assets/1aa41a22-9ea1-4117-a58f-3c18cfa46130" />
+<img width="630" height="475" alt="Balatro 1_11_2025 9_11_19 p  m" src="https://github.com/user-attachments/assets/42ff3151-ad69-4513-99a4-09315e5b27a9" />
 
-<img width="630" height="475" alt="Balatro 31_10_2025 2_54_59 p  m" src="https://github.com/user-attachments/assets/5668923b-aa55-420d-ba09-5983b6d9e07d" />
+<img width="630" height="475" alt="Balatro 1_11_2025 9_11_15 p  m" src="https://github.com/user-attachments/assets/7064bb65-49f9-4465-b14a-ce7f5e4e7d7b" />
 
-<img width="630" height="325" alt="Balatro 31_10_2025 2_55_05 p  m" src="https://github.com/user-attachments/assets/283a3449-a7ef-432a-984c-e3941bd96015" />
+<img width="630" height="325" alt="Balatro 1_11_2025 9_11_10 p  m" src="https://github.com/user-attachments/assets/a815c8c9-6294-40da-a1e9-18afd80e080d" />
