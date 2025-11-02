@@ -2,6 +2,8 @@ SMODS.Joker{ --Cavo
     key = "cavo",
     config = {
         extra = {
+            cavo_bought = 0,
+            n = 0
         }
     },
     loc_txt = {
@@ -40,6 +42,9 @@ SMODS.Joker{ --Cavo
                     message = "Destroyed!"
                 }
             end
+        end
+        if context.buying_card and context.card.config.center.key == self.key and context.cardarea == G.jokers  and not context.blueprint then
+            G.GAME.pool_flags.discord_cavo_bought = true
         end
     end
 }
