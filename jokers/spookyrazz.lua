@@ -1,23 +1,24 @@
+
 SMODS.Joker{ --Spooky Razz
     key = "spookyrazz",
     config = {
         extra = {
-            mult = 3
+            mult0 = 3
         }
     },
     loc_txt = {
         ['name'] = 'Spooky Razz',
         ['text'] = {
-            [1] = 'Played cards with {C:diamonds}Diamond{}, {C:hearts}Heart{},',
-            [2] = '{C:clubs}Club{} or {C:spades}Spade{} suit give {C:red}+3{} Mult when scored'
+            [1] = 'Played cards with {C:diamonds}Diamond{}, {C:hearts}Heart{}, {C:clubs}Club{} or',
+            [2] = '{C:spades}Spade{} suit give {C:red}+3{} Mult when scored'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 4,
-        y = 3
+        x = 0,
+        y = 4
     },
     display_size = {
         w = 71 * 0.95, 
@@ -32,13 +33,12 @@ SMODS.Joker{ --Spooky Razz
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
             if (context.other_card:is_suit("Diamonds") or context.other_card:is_suit("Hearts") or context.other_card:is_suit("Clubs") or context.other_card:is_suit("Spades")) then
                 return {
-                    mult = card.ability.extra.mult
+                    mult = 3
                 }
             end
         end

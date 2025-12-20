@@ -1,16 +1,16 @@
 
-SMODS.Joker{ --Red Theme
-    key = "red_theme",
+SMODS.Joker{ --Roleplayer
+    key = "roleplayer",
     config = {
         extra = {
             xmultvar = 1
         }
     },
     loc_txt = {
-        ['name'] = 'Red Theme',
+        ['name'] = 'Roleplayer',
         ['text'] = {
-            [1] = 'This Joker gains {X:red,C:white}X0.3{} Mult when any',
-            [2] = '{C:attention}Booster Pack{} is skipped',
+            [1] = 'This Joker gains {X:red,C:white}X0.1{} Mult per scoring',
+            [2] = '{C:attention}Enhanced{} or {C:attention}Sealed face card{} played',
             [3] = '{C:inactive}(Currently{} {X:red,C:white}X#1#{} {C:inactive}Mult){}'
         },
         ['unlock'] = {
@@ -18,12 +18,12 @@ SMODS.Joker{ --Red Theme
         }
     },
     pos = {
-        x = 9,
-        y = 4
+        x = 5,
+        y = 1
     },
     display_size = {
         w = 71 * 0.95, 
-        h = 95 * 0.21
+        h = 95 * 0.24
     },
     cost = 5,
     rarity = "discord_message",
@@ -41,13 +41,18 @@ SMODS.Joker{ --Red Theme
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster  and not context.blueprint then
-            return {
-                func = function()
-                    card.ability.extra.xmultvar = (card.ability.extra.xmultvar) + 0.3
-                    return true
+        if context.individual and context.cardarea == G.play  and not context.blueprint then
+            if (context.other_card:is_face() and (function()
+                local enhancements = SMODS.get_enhancements(context.other_card)
+                for k, v in pairs(enhancements) do
+                    if v then
+                        return true
+                    end
                 end
-            }
+                return false
+            end)() or context.other_card.seal ~= nil) then
+                card.ability.extra.xmultvar = (card.ability.extra.xmultvar) + 0.1
+            end
         end
         if context.cardarea == G.jokers and context.joker_main  then
             return {

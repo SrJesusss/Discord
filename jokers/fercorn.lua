@@ -1,9 +1,11 @@
+
 SMODS.Joker{ --Fercorn
     key = "fercorn",
     config = {
         extra = {
-            skippedblinds = 0,
-            ante_value = 1
+            numvar = 1,
+            ante_value0 = 1,
+            skippedblinds = 0
         }
     },
     loc_txt = {
@@ -17,8 +19,8 @@ SMODS.Joker{ --Fercorn
         }
     },
     pos = {
-        x = 5,
-        y = 3
+        x = 1,
+        y = 4
     },
     display_size = {
         w = 71 * 0.95, 
@@ -33,45 +35,46 @@ SMODS.Joker{ --Fercorn
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
-        return {vars = {card.ability.extra.skippedblinds}}
+        return {vars = {card.ability.extra.numvar, card.ability.extra.skippedblinds}}
     end,
-
     
     calculate = function(self, card, context)
         if context.skip_blind  and not context.blueprint then
-            if (card.ability.extra.skippedblinds or 0) < 2 then
+            if to_big((card.ability.extra.skippedblinds or 0)) < to_big(2) then
                 return {
                     func = function()
                         card.ability.extra.skippedblinds = (card.ability.extra.skippedblinds) + 1
                         return true
-                        end
-                    }
-                elseif (card.ability.extra.skippedblinds or 0) >= 2 then
-                    return {
-                        func = function()
-                            card.ability.extra.skippedblinds = 0
-                            return true
-                            end,
-                            extra = {
-                            func = function()
-                                local mod = -card.ability.extra.ante_value
-                                		ease_ante(mod)
-                                		G.E_MANAGER:add_event(Event({
-                                			func = function()
-                                    				G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
-                                    				return true
-                                    			end,
-                                		}))
-                                return true
-                                end,
-                                message = "Ante -" .. card.ability.extra.ante_value,
-                                colour = G.C.FILTER
-                            }
-                        }
                     end
-                end
+                }
+            elseif to_big((card.ability.extra.skippedblinds or 0)) >= to_big(2) then
+                return {
+                    func = function()
+                        card.ability.extra.skippedblinds = 1
+                        return true
+                    end,
+                    extra = {
+                        
+                        func = function()
+                            
+                            local mod = -1
+                            ease_ante(mod)
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
+                                    return true
+                                end,
+                            }))
+                            return true
+                        end,
+                        message = "Ante -" .. 1,
+                        colour = G.C.YELLOW
+                    }
+                }
             end
+        end
+    end
 }

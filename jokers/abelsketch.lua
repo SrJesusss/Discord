@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --AbelSketch
     key = "abelsketch",
     config = {
@@ -14,8 +15,8 @@ SMODS.Joker{ --AbelSketch
         }
     },
     pos = {
-        x = 8,
-        y = 2
+        x = 4,
+        y = 3
     },
     display_size = {
         w = 71 * 0.95, 
@@ -30,15 +31,14 @@ SMODS.Joker{ --AbelSketch
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
     end,
-
+    
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + 1
     end,
-
+    
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - 1
     end
@@ -54,10 +54,10 @@ end
 
 local can_select_card_ref = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-	if e.config.ref_table.config.center.key == "j_discord_abelsketch" then
-		e.config.colour = G.C.GREEN
-		e.config.button = "use_card"
-	else
-		can_select_card_ref(e)
-	end
+    	if e.config.ref_table.config.center.key == "j_discord_abelsketch" then
+        		e.config.colour = G.C.GREEN
+        		e.config.button = "use_card"
+    	else
+        		can_select_card_ref(e)
+    	end
 end

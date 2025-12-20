@@ -1,10 +1,9 @@
+
 SMODS.Joker{ --Happy Tomato
     key = "happy_tomato",
     config = {
         extra = {
-            moneyvar = 10,
-            start_dissolve = 0,
-            n = 0
+            moneyvar = 10
         }
     },
     loc_txt = {
@@ -18,8 +17,8 @@ SMODS.Joker{ --Happy Tomato
         }
     },
     pos = {
-        x = 8,
-        y = 0
+        x = 0,
+        y = 1
     },
     display_size = {
         w = 71 * 0.95, 
@@ -34,47 +33,73 @@ SMODS.Joker{ --Happy Tomato
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_food"] = true, ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.moneyvar}}
     end,
-
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
-        if (card.ability.extra.moneyvar or 0) >= 4 then
-            local moneyvar_value = card.ability.extra.moneyvar
-            return {
-                dollars = moneyvar_value,
-                extra = {
-                func = function()
-                    card.ability.extra.moneyvar = math.max(0, (card.ability.extra.moneyvar) - 2)
-                    return true
-                    end,
-                    colour = G.C.RED
-                }
-            }
-        elseif (card.ability.extra.moneyvar or 0) <= 2 then
-            local moneyvar_value = card.ability.extra.moneyvar
-            return {
-                dollars = moneyvar_value,
-                extra = {
-                func = function()
-                    card.ability.extra.moneyvar = math.max(0, (card.ability.extra.moneyvar) - 2)
-                    return true
-                    end,
-                    colour = G.C.RED,
-                    extra = {
+        if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
+            if to_big((card.ability.extra.moneyvar or 0)) >= to_big(4) then
+                return {
+                    
                     func = function()
-                        card:start_dissolve()
+                        
+                        local current_dollars = G.GAME.dollars
+                        local target_dollars = G.GAME.dollars + card.ability.extra.moneyvar_value
+                        local dollar_value = target_dollars - current_dollars
+                        ease_dollars(dollar_value)
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(card.ability.extra.moneyvar_value), colour = G.C.MONEY})
                         return true
+                    end,
+                    extra = {
+                        func = function()
+                            card.ability.extra.moneyvar = math.max(0, (card.ability.extra.moneyvar) - 2)
+                            return true
                         end,
                         colour = G.C.RED
                     }
                 }
-            }
+            elseif to_big((card.ability.extra.moneyvar or 0)) <= to_big(2) then
+                return {
+                    
+                    func = function()
+                        
+                        local current_dollars = G.GAME.dollars
+                        local target_dollars = G.GAME.dollars + card.ability.extra.moneyvar_value
+                        local dollar_value = target_dollars - current_dollars
+                        ease_dollars(dollar_value)
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(card.ability.extra.moneyvar_value), colour = G.C.MONEY})
+                        return true
+                    end,
+                    extra = {
+                        func = function()
+                            card.ability.extra.moneyvar = math.max(0, (card.ability.extra.moneyvar) - 2)
+                            return true
+                        end,
+                        colour = G.C.RED,
+                        extra = {
+                            func = function()
+                                local target_joker = card
+                                
+                                if target_joker then
+                                    target_joker.getting_sliced = true
+                                    G.E_MANAGER:add_event(Event({
+                                        func = function()
+                                            target_joker:start_dissolve({G.C.RED}, nil, 1.6)
+                                            return true
+                                        end
+                                    }))
+                                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Destroyed!", colour = G.C.RED})
+                                end
+                                return true
+                            end,
+                            colour = G.C.RED
+                        }
+                    }
+                }
+            end
         end
     end
-end
 }

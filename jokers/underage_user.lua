@@ -1,21 +1,23 @@
+
 SMODS.Joker{ --Underage User
     key = "underage_user",
     config = {
         extra = {
-            chips = 8
+            chips0 = 8,
+            mult0 = 8
         }
     },
     loc_txt = {
         ['name'] = 'Underage User',
         ['text'] = {
-            [1] = 'Each {C:attention}Wee Joker{} give {C:blue}+8{} Chips'
+            [1] = 'Each {C:attention}Wee Joker{} give {C:blue}+8{} Chips and {C:red}+8{} Mult'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 4,
+        x = 9,
         y = 1
     },
     display_size = {
@@ -31,7 +33,7 @@ SMODS.Joker{ --Underage User
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["j_wee"]
@@ -42,17 +44,17 @@ SMODS.Joker{ --Underage User
         end
         return {vars = {}}
     end,
-
     
     calculate = function(self, card, context)
         if context.other_joker  then
-            if (function()
-                return context.other_joker.config.center.key == "j_wee"
-                end)() then
-                    return {
-                        chips = card.ability.extra.chips
+            if context.other_joker.config.center.key == "j_wee" then
+                return {
+                    chips = 8,
+                    extra = {
+                        mult = 8
                     }
-                end
+                }
             end
         end
+    end
 }

@@ -1,14 +1,15 @@
+
 SMODS.Joker{ --Nitro Basic
     key = "nitro_basic",
     config = {
         extra = {
-            dollars = 3
+            dollars0 = 3
         }
     },
     loc_txt = {
         ['name'] = 'Nitro Basic',
         ['text'] = {
-            [1] = '{C:dark_edition}+5{} Joker Slots',
+            [1] = '{C:dark_edition}+5{} Joker Slots,',
             [2] = 'Lose {C:money}$3{} at end of round'
         },
         ['unlock'] = {
@@ -32,20 +33,28 @@ SMODS.Joker{ --Nitro Basic
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
-        return {
-            dollars = -card.ability.extra.dollars
-        }
-    end
-end,
-
+        if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
+            return {
+                
+                func = function()
+                    
+                    local current_dollars = G.GAME.dollars
+                    local target_dollars = G.GAME.dollars - 3
+                    local dollar_value = target_dollars - current_dollars
+                    ease_dollars(dollar_value)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(3), colour = G.C.MONEY})
+                    return true
+                end
+            }
+        end
+    end,
+    
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + 5
     end,
-
+    
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - 5
     end
@@ -61,10 +70,10 @@ end
 
 local can_select_card_ref = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-	if e.config.ref_table.config.center.key == "j_discord_nitro_basic" then
-		e.config.colour = G.C.GREEN
-		e.config.button = "use_card"
-	else
-		can_select_card_ref(e)
-	end
+    	if e.config.ref_table.config.center.key == "j_discord_nitro_basic" then
+        		e.config.colour = G.C.GREEN
+        		e.config.button = "use_card"
+    	else
+        		can_select_card_ref(e)
+    	end
 end

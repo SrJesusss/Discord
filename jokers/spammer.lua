@@ -1,9 +1,9 @@
+
 SMODS.Joker{ --Spammer
     key = "spammer",
     config = {
         extra = {
-            mult = 4,
-            ignore = 0
+            mult0 = 4
         }
     },
     loc_txt = {
@@ -33,7 +33,7 @@ SMODS.Joker{ --Spammer
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["e_negative"]
@@ -50,36 +50,35 @@ SMODS.Joker{ --Spammer
         end
         return {vars = {}}
     end,
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             return {
-                mult = card.ability.extra.mult
+                mult = 4
             }
         end
-    if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
-        if (G.GAME.blind.config.blind.key == "bl_wall" or G.GAME.blind.config.blind.key == "bl_final_vessel") then
-            return {
-                func = function()
-                    
-                    local created_joker = true
-                    G.E_MANAGER:add_event(Event({
+        if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
+            if (to_big(G.GAME.blind.config.blind.key) == to_big("bl_wall") or to_big(G.GAME.blind.config.blind.key) == to_big("bl_final_vessel")) then
+                return {
                     func = function()
-                        local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_joker' })
-                        if joker_card then
-                            joker_card:set_edition("e_negative", true)
-                            
-                        end
                         
-                        return true
+                        local created_joker = true
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_joker' })
+                                if joker_card then
+                                    joker_card:set_edition(card.ability.extra.e_negative, true)
+                                    
+                                end
+                                
+                                return true
+                            end
+                        }))
+                        
+                        if created_joker then
+                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
                         end
-                    }))
-                    
-                    if created_joker then
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
-                    end
-                    return true
+                        return true
                     end
                 }
             end

@@ -1,25 +1,24 @@
 
-SMODS.Joker{ --StefWuzHere
-    key = "stefwuzhere",
+SMODS.Joker{ --Minecraft Player
+    key = "minecraft_player",
     config = {
         extra = {
-            chips0 = 1,
-            mult0 = 1
+            mult0 = 64
         }
     },
     loc_txt = {
-        ['name'] = 'StefWuzHere',
+        ['name'] = 'Minecraft Player',
         ['text'] = {
-            [1] = 'Played cards give {C:blue}+1{} Chips',
-            [2] = 'and {C:red}+1{} Mult when scored'
+            [1] = '{C:red}+64{} Mult if played hand has',
+            [2] = 'exactly {C:attention}4{} scoring cards'
         },
         ['unlock'] = {
-            [1] = 'Unlocked by default.'
+            [1] = ''
         }
     },
     pos = {
-        x = 9,
-        y = 3
+        x = 4,
+        y = 1
     },
     display_size = {
         w = 71 * 0.95, 
@@ -36,13 +35,12 @@ SMODS.Joker{ --StefWuzHere
     pools = { ["discord_dm_me"] = true },
     
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play  then
-            return {
-                chips = 1,
-                extra = {
-                    mult = 1
+        if context.cardarea == G.jokers and context.joker_main  then
+            if to_big(#context.scoring_hand) == to_big(4) then
+                return {
+                    mult = 64
                 }
-            }
+            end
         end
     end
 }

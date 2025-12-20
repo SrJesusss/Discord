@@ -1,15 +1,15 @@
 
-SMODS.Joker{ --Saucequest31
-    key = "saucequest31",
+SMODS.Joker{ --Snow Pickle
+    key = "snow_pickle",
     config = {
         extra = {
         }
     },
     loc_txt = {
-        ['name'] = 'Saucequest31',
+        ['name'] = 'Snow Pickle',
         ['text'] = {
-            [1] = 'Creates a {C:uncommon}Uncommon{} {C:attention}Joker{} when',
-            [2] = '{C:attention}Boss Blind{} is defeated',
+            [1] = 'When {C:attention}Boss Blind{} is defeated',
+            [2] = 'creates a {C:bfs_fused,E:1}Fused{} {C:attention}Joker{}',
             [3] = '{C:inactive}(Must have room){}'
         },
         ['unlock'] = {
@@ -17,12 +17,12 @@ SMODS.Joker{ --Saucequest31
         }
     },
     pos = {
-        x = 2,
+        x = 7,
         y = 4
     },
     display_size = {
         w = 71 * 0.95, 
-        h = 95 * 0.29
+        h = 95 * 0.17
     },
     cost = 5,
     rarity = "discord_message",
@@ -32,6 +32,7 @@ SMODS.Joker{ --Saucequest31
     unlocked = true,
     discovered = true,
     atlas = 'CustomJokers',
+    dependencies = {"balatrofusion"},
     pools = { ["discord_dm_me"] = true },
     
     calculate = function(self, card, context)
@@ -45,7 +46,7 @@ SMODS.Joker{ --Saucequest31
                         G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                         G.E_MANAGER:add_event(Event({
                             func = function()
-                                local joker_card = SMODS.add_card({ set = 'Joker', rarity = 'Uncommon' })
+                                local joker_card = SMODS.add_card({ set = 'Joker', rarity = 'bfs_fused' })
                                 if joker_card then
                                     
                                     
@@ -60,6 +61,15 @@ SMODS.Joker{ --Saucequest31
                     end
                     return true
                 end
+            }
+        end
+        if (context.end_of_round or context.reroll_shop or context.buying_card or
+            context.selling_card or context.ending_shop or context.starting_shop or 
+            context.ending_booster or context.skipping_booster or context.open_booster or
+            context.skip_blind or context.before or context.pre_discard or context.setting_blind or
+        context.using_consumeable)  and not context.blueprint  then
+            return {
+                message = "@here"
             }
         end
     end

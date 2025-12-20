@@ -1,9 +1,11 @@
+
 SMODS.Joker{ --Emoticon
     key = "emoticon",
     config = {
         extra = {
-            source_rank_type = "face_cards",
-            target_rank = "A"
+            source_rank_type = 'face_cards',
+            source_ranks = '{}',
+            target_rank = '"A"'
         }
     },
     loc_txt = {
@@ -16,7 +18,7 @@ SMODS.Joker{ --Emoticon
         }
     },
     pos = {
-        x = 2,
+        x = 7,
         y = 1
     },
     display_size = {
@@ -32,15 +34,14 @@ SMODS.Joker{ --Emoticon
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
     end,
-
+    
     add_to_deck = function(self, card, from_debuff)
         -- Combine ranks effect enabled
     end,
-
+    
     remove_from_deck = function(self, card, from_debuff)
         -- Combine ranks effect disabled
     end

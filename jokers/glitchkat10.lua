@@ -1,8 +1,9 @@
+
 SMODS.Joker{ --Glitchkat10
     key = "glitchkat10",
     config = {
         extra = {
-            ante_value = 1
+            ante_value0 = 1
         }
     },
     loc_txt = {
@@ -16,7 +17,7 @@ SMODS.Joker{ --Glitchkat10
         }
     },
     pos = {
-        x = 0,
+        x = 6,
         y = 3
     },
     display_size = {
@@ -32,31 +33,32 @@ SMODS.Joker{ --Glitchkat10
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.game_over and context.main_eval  and not context.blueprint then
-        if G.GAME.chips / G.GAME.blind.chips >= to_big(0.5) then
-            return {
-                saved = true,
-                message = localize('k_saved_ex'),
-                extra = {
-                func = function()
-                    local mod = card.ability.extra.ante_value
-                    		ease_ante(mod)
-                    		G.E_MANAGER:add_event(Event({
-                    			func = function()
-                        				G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
-                        				return true
-                        			end,
-                    		}))
-                    return true
-                    end,
-                    message = "Ante +" .. card.ability.extra.ante_value,
-                    colour = G.C.FILTER
+        if context.end_of_round and context.game_over and context.main_eval  and not context.blueprint then
+            if to_big(G.GAME.chips / G.GAME.blind.chips) >= to_big(0.5) then
+                return {
+                    saved = true,
+                    message = localize('k_saved_ex'),
+                    extra = {
+                        
+                        func = function()
+                            
+                            local mod = 1
+                            ease_ante(mod)
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
+                                    return true
+                                end,
+                            }))
+                            return true
+                        end,
+                        message = "Ante +" .. 1,
+                        colour = G.C.YELLOW
+                    }
                 }
-            }
+            end
         end
     end
-end
 }

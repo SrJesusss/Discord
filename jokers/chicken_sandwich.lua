@@ -1,15 +1,15 @@
+
 SMODS.Joker{ --Chicken Sandwich
     key = "chicken_sandwich",
     config = {
         extra = {
-            mult = 1,
-            ignore = 0
+            mult0 = 1
         }
     },
     loc_txt = {
         ['name'] = 'Chicken Sandwich',
         ['text'] = {
-            [1] = '{C:red}+1{} Mult',
+            [1] = '{C:red}+1{} Mult,',
             [2] = '{C:dark_edition}+1{} Joker Slot',
             [3] = 'creates {C:attention}Chicken Sandwich{}',
             [4] = 'when {C:attention}Boss Blind{} is defeated'
@@ -19,8 +19,8 @@ SMODS.Joker{ --Chicken Sandwich
         }
     },
     pos = {
-        x = 9,
-        y = 0
+        x = 1,
+        y = 1
     },
     display_size = {
         w = 71 * 0.95, 
@@ -35,47 +35,43 @@ SMODS.Joker{ --Chicken Sandwich
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_food"] = true, ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             return {
-                mult = card.ability.extra.mult
+                mult = 1
             }
         end
-    if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
-        return {
-            func = function()
-                
-                local created_joker = false
-                if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                    created_joker = true
-                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+        if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
+            return {
+                func = function()
+                    
+                    local created_joker = true
                     G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_discord_chicken_sandwich' })
-                        if joker_card then
+                        func = function()
+                            local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_discord_chicken_sandwich' })
+                            if joker_card then
+                                
+                                
+                            end
                             
-                            
-                        end
-                        G.GAME.joker_buffer = 0
-                        return true
+                            return true
                         end
                     }))
-                end
-                if created_joker then
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
-                end
-                return true
+                    
+                    if created_joker then
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+                    end
+                    return true
                 end
             }
         end
     end,
-
+    
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + 1
     end,
-
+    
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - 1
     end
@@ -91,10 +87,10 @@ end
 
 local can_select_card_ref = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-	if e.config.ref_table.config.center.key == "j_discord_chicken_sandwich" then
-		e.config.colour = G.C.GREEN
-		e.config.button = "use_card"
-	else
-		can_select_card_ref(e)
-	end
+    	if e.config.ref_table.config.center.key == "j_discord_chicken_sandwich" then
+        		e.config.colour = G.C.GREEN
+        		e.config.button = "use_card"
+    	else
+        		can_select_card_ref(e)
+    	end
 end

@@ -1,17 +1,18 @@
+
 SMODS.Joker{ --Self Reaction Spoted
     key = "self_reaction_spoted",
     config = {
         extra = {
             odds = 2,
-            levels = 1
+            levels0 = 1
         }
     },
     loc_txt = {
         ['name'] = 'Self Reaction Spoted',
         ['text'] = {
-            [1] = 'If played poker hand is {C:attention}Pair{}',
-            [2] = '{C:green}#1# in #2#{} chance to level up',
-            [3] = 'a random {C:attention}poker hand{}',
+            [1] = 'If played {C:attention}poker hand{} is a {C:attention}Pair{}',
+            [2] = '{C:green}#1# in #2#{} chance to upgrade',
+            [3] = 'level of random {C:attention}poker hand{}',
             [4] = '{s:0.75,C:inactive}(Credits to: Blue){}'
         },
         ['unlock'] = {
@@ -19,7 +20,7 @@ SMODS.Joker{ --Self Reaction Spoted
         }
     },
     pos = {
-        x = 2,
+        x = 4,
         y = 0
     },
     display_size = {
@@ -35,13 +36,12 @@ SMODS.Joker{ --Self Reaction Spoted
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_discord_self_reaction_spoted') 
         return {vars = {new_numerator, new_denominator}}
     end,
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -54,8 +54,7 @@ SMODS.Joker{ --Self Reaction Spoted
                         end
                     end
                     local target_hand = #available_hands > 0 and pseudorandom_element(available_hands, pseudoseed('level_up_hand')) or "High Card"
-                        SMODS.calculate_effect({level_up = card.ability.extra.levels,
-                    level_up_hand = target_hand}, card)
+                    level_up_hand(card, target_hand, true, 1)
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_level_up_ex'), colour = G.C.RED})
                 end
             end

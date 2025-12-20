@@ -1,8 +1,8 @@
+
 SMODS.Joker{ --Waffle?
     key = "waffle",
     config = {
         extra = {
-            respect = 0
         }
     },
     loc_txt = {
@@ -17,8 +17,8 @@ SMODS.Joker{ --Waffle?
         }
     },
     pos = {
-        x = 7,
-        y = 3
+        x = 3,
+        y = 4
     },
     display_size = {
         w = 71 * 0.95, 
@@ -33,7 +33,7 @@ SMODS.Joker{ --Waffle?
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["j_discord_happy_tomato"]
@@ -44,33 +44,32 @@ SMODS.Joker{ --Waffle?
         end
         return {vars = {}}
     end,
-
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
-        return {
-            func = function()
-                
-                local created_joker = false
-                if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                    created_joker = true
-                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_discord_happytomato' })
-                        if joker_card then
-                            
-                            
-                        end
-                        G.GAME.joker_buffer = 0
-                        return true
-                        end
-                    }))
-                end
-                if created_joker then
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
-                end
-                return true
+        if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
+            return {
+                func = function()
+                    
+                    local created_joker = false
+                    if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                        created_joker = true
+                        G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_discord_happytomato' })
+                                if joker_card then
+                                    
+                                    
+                                end
+                                G.GAME.joker_buffer = 0
+                                return true
+                            end
+                        }))
+                    end
+                    if created_joker then
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+                    end
+                    return true
                 end
             }
         end

@@ -1,8 +1,8 @@
+
 SMODS.Joker{ --Ragebaiter
     key = "ragebaiter",
     config = {
         extra = {
-            respect = 0
         }
     },
     loc_txt = {
@@ -16,7 +16,7 @@ SMODS.Joker{ --Ragebaiter
         }
     },
     pos = {
-        x = 3,
+        x = 5,
         y = 0
     },
     display_size = {
@@ -32,7 +32,7 @@ SMODS.Joker{ --Ragebaiter
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["j_popcorn"]
@@ -43,24 +43,23 @@ SMODS.Joker{ --Ragebaiter
         end
         return {vars = {}}
     end,
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-            if G.GAME.current_round.hands_left == 0 then
+            if to_big(G.GAME.current_round.hands_left) == to_big(1) then
                 local created_joker = false
                 if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
                     created_joker = true
                     G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                     G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_popcorn' })
-                        if joker_card then
-                            
-                            
-                        end
-                        G.GAME.joker_buffer = 0
-                        return true
+                        func = function()
+                            local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_popcorn' })
+                            if joker_card then
+                                
+                                
+                            end
+                            G.GAME.joker_buffer = 0
+                            return true
                         end
                     }))
                 end

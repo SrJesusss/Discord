@@ -1,8 +1,8 @@
+
 SMODS.Joker{ --Superbread
     key = "superbread",
     config = {
         extra = {
-            ignore = 0
         }
     },
     loc_txt = {
@@ -16,8 +16,8 @@ SMODS.Joker{ --Superbread
         }
     },
     pos = {
-        x = 8,
-        y = 3
+        x = 4,
+        y = 4
     },
     display_size = {
         w = 71 * 0.95, 
@@ -32,7 +32,7 @@ SMODS.Joker{ --Superbread
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["j_discord_chicken_sandwich"]
@@ -43,33 +43,29 @@ SMODS.Joker{ --Superbread
         end
         return {vars = {}}
     end,
-
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval  then
-        return {
-            func = function()
-                
-                local created_joker = false
-                if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                    created_joker = true
-                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+        if context.end_of_round and context.game_over == false and context.main_eval  then
+            return {
+                func = function()
+                    
+                    local created_joker = true
                     G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_discord_chicken_sandwich' })
-                        if joker_card then
+                        func = function()
+                            local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_discord_chicken_sandwich' })
+                            if joker_card then
+                                
+                                
+                            end
                             
-                            
-                        end
-                        G.GAME.joker_buffer = 0
-                        return true
+                            return true
                         end
                     }))
-                end
-                if created_joker then
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
-                end
-                return true
+                    
+                    if created_joker then
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+                    end
+                    return true
                 end
             }
         end

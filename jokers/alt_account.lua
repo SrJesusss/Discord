@@ -1,9 +1,8 @@
+
 SMODS.Joker{ --Alt Account
     key = "alt_account",
     config = {
         extra = {
-            perishable = 0,
-            ignore = 0
         }
     },
     loc_txt = {
@@ -18,7 +17,7 @@ SMODS.Joker{ --Alt Account
         }
     },
     pos = {
-        x = 3,
+        x = 8,
         y = 1
     },
     display_size = {
@@ -34,7 +33,7 @@ SMODS.Joker{ --Alt Account
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["e_negative"]
@@ -45,35 +44,34 @@ SMODS.Joker{ --Alt Account
         end
         return {vars = {}}
     end,
-
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.main_eval and G.GAME.blind.boss  and not context.blueprint then
-        return {
-            func = function()
-                local my_pos = nil
-                for i = 1, #G.jokers.cards do
-                    if G.jokers.cards[i] == card then
-                        my_pos = i
-                        break
-                    end
-                end
-                local target_joker = (my_pos and my_pos < #G.jokers.cards) and G.jokers.cards[my_pos + 1] or nil
-                
-                if target_joker then
-                    G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
-                        copied_joker:set_edition("e_negative", true)
-                        copied_joker:add_sticker('perishable', true)
-                        copied_joker:add_to_deck()
-                        G.jokers:emplace(copied_joker)
-                        return true
+        if context.end_of_round and context.main_eval and G.GAME.blind.boss  and not context.blueprint then
+            return {
+                func = function()
+                    local my_pos = nil
+                    for i = 1, #G.jokers.cards do
+                        if G.jokers.cards[i] == card then
+                            my_pos = i
+                            break
                         end
-                    }))
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
-                end
-                return true
+                    end
+                    local target_joker = (my_pos and my_pos < #G.jokers.cards) and G.jokers.cards[my_pos + 1] or nil
+                    
+                    if target_joker then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
+                                copied_joker:set_edition("e_negative", true)
+                                copied_joker:add_sticker('perishable', true)
+                                copied_joker:add_to_deck()
+                                G.jokers:emplace(copied_joker)
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
+                    end
+                    return true
                 end
             }
         end

@@ -1,11 +1,8 @@
+
 SMODS.Joker{ --Moderator
     key = "moderator",
     config = {
         extra = {
-            no = 0,
-            var1 = 0,
-            dm_me = 0,
-            respect = 0
         }
     },
     loc_txt = {
@@ -13,15 +10,14 @@ SMODS.Joker{ --Moderator
         ['text'] = {
             [1] = 'When {C:attention}Blind{} is selected, destroy',
             [2] = 'Joker to the right and',
-            [3] = 'creates a {C:blue}Discord{} {C:attention}Joker{}',
-            [4] = '{C:inactive}(Must have room){}'
+            [3] = 'creates a {C:blue}Discord{} {C:attention}Joker{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 0,
+        x = 3,
         y = 1
     },
     display_size = {
@@ -37,7 +33,6 @@ SMODS.Joker{ --Moderator
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
         if context.setting_blind  and not context.blueprint then
@@ -61,42 +56,39 @@ SMODS.Joker{ --Moderator
                     if target_joker then
                         target_joker.getting_sliced = true
                         G.E_MANAGER:add_event(Event({
-                        func = function()
-                            target_joker:start_dissolve({G.C.RED}, nil, 1.6)
-                            return true
+                            func = function()
+                                target_joker:start_dissolve({G.C.RED}, nil, 1.6)
+                                return true
                             end
                         }))
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Destroyed!", colour = G.C.RED})
                     end
                     return true
-                    end,
-                    extra = {
+                end,
+                extra = {
                     func = function()
                         
-                        local created_joker = false
-                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                            created_joker = true
-                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                            G.E_MANAGER:add_event(Event({
+                        local created_joker = true
+                        G.E_MANAGER:add_event(Event({
                             func = function()
                                 local joker_card = SMODS.add_card({ set = 'discord_dm_me' })
                                 if joker_card then
                                     
                                     
                                 end
-                                G.GAME.joker_buffer = 0
+                                
                                 return true
-                                end
-                            }))
-                        end
+                            end
+                        }))
+                        
                         if created_joker then
                             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
                         end
                         return true
-                        end,
-                        colour = G.C.BLUE
-                    }
+                    end,
+                    colour = G.C.BLUE
                 }
-            end
+            }
         end
+    end
 }

@@ -1,16 +1,16 @@
+
 SMODS.Joker{ --Sillyz / Jimbo
     key = "sillyz_jimbo",
     config = {
         extra = {
-            odds = 4,
-            respect = 0
+            odds = 4
         }
     },
     loc_txt = {
         ['name'] = 'Sillyz / Jimbo',
         ['text'] = {
-            [1] = 'When a card is bought',
-            [2] = '{C:green}#2# in #3#{} chance to create {C:attention}Joker{}',
+            [1] = '{C:green}#1# in #2#{} chance to create {C:attention}Joker{}',
+            [2] = 'when a card is {C:attention}bought{}',
             [3] = '{C:inactive}(Must have room){}'
         },
         ['unlock'] = {
@@ -18,8 +18,8 @@ SMODS.Joker{ --Sillyz / Jimbo
         }
     },
     pos = {
-        x = 6,
-        y = 2
+        x = 2,
+        y = 3
     },
     display_size = {
         w = 71 * 0.95, 
@@ -34,7 +34,7 @@ SMODS.Joker{ --Sillyz / Jimbo
     discovered = true,
     atlas = 'CustomJokers',
     pools = { ["discord_dm_me"] = true },
-
+    
     loc_vars = function(self, info_queue, card)
         
         local info_queue_0 = G.P_CENTERS["j_joker"]
@@ -44,21 +44,20 @@ SMODS.Joker{ --Sillyz / Jimbo
             error("JOKERFORGE: Invalid key in infoQueues. \"j_joker\" isn't a valid Object key, Did you misspell it or forgot a modprefix?")
         end
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_discord_sillyz_jimbo') 
-        return {vars = {card.ability.extra.respect, new_numerator, new_denominator}}
+        return {vars = {new_numerator, new_denominator}}
     end,
-
     
     calculate = function(self, card, context)
         if context.buying_card  then
             if true then
                 if SMODS.pseudorandom_probability(card, 'group_0_1861d010', 1, card.ability.extra.odds, 'j_discord_sillyz_jimbo', false) then
-                        SMODS.calculate_effect({func = function()
-                            
-                            local created_joker = false
-                            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                                created_joker = true
-                                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                                G.E_MANAGER:add_event(Event({
+                    SMODS.calculate_effect({func = function()
+                        
+                        local created_joker = false
+                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                            created_joker = true
+                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                            G.E_MANAGER:add_event(Event({
                                 func = function()
                                     local joker_card = SMODS.add_card({ set = 'Joker', key = 'j_joker' })
                                     if joker_card then
@@ -67,16 +66,16 @@ SMODS.Joker{ --Sillyz / Jimbo
                                     end
                                     G.GAME.joker_buffer = 0
                                     return true
-                                    end
-                                }))
-                            end
-                            if created_joker then
-                                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
-                            end
-                            return true
-                            end}, card)
+                                end
+                            }))
                         end
-                    end
+                        if created_joker then
+                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE})
+                        end
+                        return true
+                    end}, card)
                 end
             end
+        end
+    end
 }

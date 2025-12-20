@@ -1,27 +1,29 @@
+
 SMODS.Joker{ --Clown
     key = "clown",
     config = {
         extra = {
-            dollars = 5
+            dollars0 = 1,
+            dollars = 1
         }
     },
     loc_txt = {
         ['name'] = 'Clown',
         ['text'] = {
-            [1] = 'Each {C:attention}Queen{} held in hand',
-            [2] = 'earn {C:money}$5{} and destroy it'
+            [1] = 'Earn {C:money}$1{} when a card is {C:attention}bought{},',
+            [2] = 'lose {C:money}$1{} when a card is {C:attention}sold{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 4,
+        x = 3,
         y = 0
     },
     display_size = {
         w = 71 * 0.95, 
-        h = 95 * 0.51
+        h = 95 * 0.24
     },
     cost = 5,
     rarity = "discord_message",
@@ -31,25 +33,37 @@ SMODS.Joker{ --Clown
     unlocked = true,
     discovered = true,
     atlas = 'CustomJokers',
+    dependencies = {"kloun"},
     pools = { ["discord_dm_me"] = true },
-
     
     calculate = function(self, card, context)
-        if context.destroy_card and context.destroy_card.should_destroy  then
-            return { remove = true }
-        end
-    if context.individual and context.cardarea == G.hand and not context.end_of_round  then
-        context.other_card.should_destroy = false
-        if context.other_card:get_id() == 12 then
-            context.other_card.should_destroy = true
+        if context.selling_card  then
             return {
-                dollars = card.ability.extra.dollars,
-                extra = {
-                message = "Destroyed!",
-                colour = G.C.RED
+                
+                func = function()
+                    
+                    local current_dollars = G.GAME.dollars
+                    local target_dollars = G.GAME.dollars - 1
+                    local dollar_value = target_dollars - current_dollars
+                    ease_dollars(dollar_value)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(1), colour = G.C.MONEY})
+                    return true
+                end
             }
-        }
+        end
+        if context.buying_card  then
+            return {
+                
+                func = function()
+                    
+                    local current_dollars = G.GAME.dollars
+                    local target_dollars = G.GAME.dollars + 1
+                    local dollar_value = target_dollars - current_dollars
+                    ease_dollars(dollar_value)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(1), colour = G.C.MONEY})
+                    return true
+                end
+            }
+        end
     end
-end
-end
 }
